@@ -16,6 +16,9 @@ gem 'webpacker',                  '4.0.7'
 gem 'turbolinks',                 '5.2.0'
 gem 'jbuilder',                   '2.9.1'
 gem 'bootsnap',                   '1.4.4', require: false
+gem 'erb2haml', :group => :development
+gem "haml"
+gem "haml-rails"
 
 group :development, :test do
   gem 'sqlite3', '1.4.1'
