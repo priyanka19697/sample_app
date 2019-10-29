@@ -1,0 +1,14 @@
+%h1 Users list
+%table
+  %thead
+    %tr
+      %th Name  
+      %th Email
+      %th{:colspan => "3"}
+  %tbody
+    - users.each do |user|
+      %tr
+        %td= user.name
+        %td= user.email
+        
+%br/
