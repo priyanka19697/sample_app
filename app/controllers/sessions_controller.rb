@@ -8,13 +8,16 @@ class SessionsController < ApplicationController
 
     if(user && user.authenticate(params[:session][:password]))
       #login and redirect to user's show page
-      log_in(user)
-      # redirect_to user
-      redirect_back_or user
+      if user.activated?
+        log_in user
+        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+        redirect_back_or user
+      end
     else
-      #create an error message - contents of flash.now disappear as soon as there is an additional request
-      flash.now[:danger] = 'Invalid email/password combination' # Not quite right!
-      render 'new'
+      message = "Account not activated. "
+      message += "Check your email for the activation link."
+      flash[:warning] = message
+      redirect_to root_url
     end
 
   end

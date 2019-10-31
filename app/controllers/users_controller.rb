@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
   def index 
     # @users = User.all
-    @users = User.paginate(page: params[:page])
+    @users = User.where(activated: true)paginate(page: params[:page])
   end
 
   def new
@@ -25,10 +25,14 @@ class UsersController < ApplicationController
     # @user = User.new(params[:user])
     @user = User.new(user_params)
     if @user.save
-      log_in @user
-      flash[:success] = "Welcome to the Sample App!"
-      #handle a successful save
-      redirect_to user_url @user
+      # log_in @user
+      # flash[:success] = "Welcome to the Sample App!"
+      # #handle a successful save
+      # redirect_to user_url @user
+      @user.send_activation_email
+      # UserMailer.account_activation(@user).deliver_now
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
     else 
       render 'new'
     end
