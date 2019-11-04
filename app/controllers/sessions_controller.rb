@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       #login and redirect to user's show page
       if user.activated?
         log_in user
-        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+        # params[:session][:remember_me] == '1' ? remember(user) : forget(user)
         redirect_back_or user
       end
     else
@@ -28,3 +28,5 @@ class SessionsController < ApplicationController
   end
 
 end
+
+

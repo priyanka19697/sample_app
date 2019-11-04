@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
 
   def show
-    @user = User.find(params[:id])  
+    @user = User.find(params[:id]) 
+    @microposts = @user.microposts.paginate(page: params[:page]) 
   end
 
   # def setup
@@ -13,8 +14,8 @@ class UsersController < ApplicationController
   # end
 
   def index 
-    # @users = User.all
-    @users = User.where(activated: true)paginate(page: params[:page])
+    @users = User.all
+    # @users = User.where(activated: true)paginate(page: params[:page])
   end
 
   def new
@@ -60,13 +61,13 @@ class UsersController < ApplicationController
   end
   
   
-  # confirms logged in user
-  def logged_in_user
-    unless logged_in?
-      flash[:danger] = "Please log in"
-      redirect_to login_url
-    end
-  end
+  # # confirms logged in user
+  # def logged_in_user
+  #   unless logged_in?
+  #     flash[:danger] = "Please log in"
+  #     redirect_to login_url
+  #   end
+  # end
 
   #confirms correct user to edit
   def correct_user
@@ -85,4 +86,6 @@ class UsersController < ApplicationController
   end
 
 end
+
+# User.last.send(:activate)
   
